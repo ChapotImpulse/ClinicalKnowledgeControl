@@ -60,7 +60,8 @@ namespace ClinicalKnowledgeControl.UI
             // Меню ГВС
             if (_currentUser.RoleId == (int)UserRole.GVS)
             {
-                var adminMenu = new ToolStripMenuItem("Администрирование");
+                var adminMenu = new ToolStripMenuItem("Справочники");
+                adminMenu.DropDownItems.Add("Клинические рекомендации", null, OpenClinicalGuidelines);
                 adminMenu.DropDownItems.Add("Банк вопросов", null, OpenQuestionsBank);
                 menuStrip.Items.Add(adminMenu);
             }

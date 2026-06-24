@@ -27,14 +27,36 @@ namespace ClinicalKnowledgeControl.BLL.Services
             return _repository.GetInstitutionReport();
         }
 
+        /// <summary>
+        /// Рейтинг врачей по всему учреждению (для заместителя главного врача)
+        /// </summary>
         public DataTable GetDoctorRating()
         {
             return _repository.GetDoctorRating();
         }
 
+        /// <summary>
+        /// Рейтинг врачей конкретного отделения (для заведующего)
+        /// </summary>
+        public DataTable GetDoctorRatingByDepartment(int departmentId)
+        {
+            return _repository.GetDoctorRatingByDepartment(departmentId);
+        }
+
+        /// <summary>
+        /// Статистика по вопросам по всему учреждению
+        /// </summary>
         public DataTable GetQuestionStatistics()
         {
             return _repository.GetQuestionStatistics();
+        }
+
+        /// <summary>
+        /// Статистика по вопросам на основе ответов врачей конкретного отделения
+        /// </summary>
+        public DataTable GetQuestionStatisticsByDepartment(int departmentId)
+        {
+            return _repository.GetQuestionStatisticsByDepartment(departmentId);
         }
 
         public DataTable GetDoctorHistory(int userId)

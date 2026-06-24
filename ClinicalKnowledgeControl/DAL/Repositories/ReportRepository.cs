@@ -206,6 +206,46 @@ namespace ClinicalKnowledgeControl.DAL.Repositories
             }
         }
 
+        /// <summary>
+        /// Рейтинг врачей конкретного отделения
+        /// </summary>
+        /// <param name="departmentId">Id отделения</param>
+        public DataTable GetDoctorRatingByDepartment(int departmentId)
+        {
+            using (var conn = ConnectionManager.GetConnection())
+            {
+                string query = @"
+                    SELECT
+                        u.FullName AS DoctorName,
+                        d.Name AS DepartmentName,
+                        COUNT(CASE WHEN att.IsPassed = 1 THEN 1 END) AS PassedTests,
+                        COUNT(att.Id) AS TotalAttempts,
+                        ISNULL(AVG(att.Score), 0) AS AverageScore
+                    FROM Users u
+                    LEFT JOIN Departments d ON u.DepartmentId = d.Id
+                    LEFT JOIN TestAttempts att ON u.Id = att.UserId AND att.Status IN (3, 4, 5)
+                    WHERE u.RoleId = 1 
+                      AND u.IsActive = 1 
+                      AND u.DepartmentId = @DepartmentId
+                    GROUP BY u.Id, u.FullName, d.Name
+                    ORDER BY AverageScore DESC";
+
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@DepartmentId", departmentId);
+                    using (var adapter = new SqlDataAdapter(cmd))
+                    {
+                        var dt = new DataTable();
+                        adapter.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Рейтинг врачей по всему учреждению (для заместителя главного врача)
+        /// </summary>
         public DataTable GetDoctorRating()
         {
             using (var conn = ConnectionManager.GetConnection())
@@ -233,6 +273,56 @@ namespace ClinicalKnowledgeControl.DAL.Repositories
             }
         }
 
+        /// <summary>
+        /// Статистика по вопросам на основе ответов врачей конкретного отделения
+        /// </summary>
+        public DataTable GetQuestionStatisticsByDepartment(int departmentId)
+        {
+            using (var conn = ConnectionManager.GetConnection())
+            {
+                string query = @"
+                    SELECT
+                        q.Text AS QuestionText,
+                        cg.Name AS ClinicalGuideline,
+                        COUNT(aa.Id) AS TotalAnswers,
+                        SUM(CASE WHEN aa.IsCorrect = 1 THEN 1 ELSE 0 END) AS CorrectAnswers,
+                        CAST(
+                            CASE 
+                                WHEN COUNT(aa.Id) = 0 THEN 0
+                                ELSE SUM(CASE WHEN aa.IsCorrect = 1 THEN 1.0 ELSE 0.0 END) / COUNT(aa.Id) * 100
+                            END AS DECIMAL(5,2)
+                        ) AS CorrectPercentage
+                    FROM Questions q
+                    INNER JOIN ClinicalGuidelines cg ON q.ClinicalGuidelineId = cg.Id
+                    INNER JOIN AttemptAnswers aa ON q.Id = aa.QuestionId
+                    INNER JOIN TestAttempts att ON aa.AttemptId = att.Id
+                    WHERE q.IsActive = 1
+                      AND att.UserId IN (
+                          SELECT Id FROM Users 
+                          WHERE DepartmentId = @DepartmentId 
+                            AND RoleId = 1 
+                            AND IsActive = 1
+                      )
+                    GROUP BY q.Id, q.Text, cg.Name
+                    HAVING COUNT(aa.Id) > 0
+                    ORDER BY CorrectPercentage ASC";
+
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@DepartmentId", departmentId);
+                    using (var adapter = new SqlDataAdapter(cmd))
+                    {
+                        var dt = new DataTable();
+                        adapter.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Статистика по вопросам по всему учреждению
+        /// </summary>
         public DataTable GetQuestionStatistics()
         {
             using (var conn = ConnectionManager.GetConnection())

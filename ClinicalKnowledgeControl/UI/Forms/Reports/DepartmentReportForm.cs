@@ -112,7 +112,7 @@ namespace ClinicalKnowledgeControl.UI.Forms.Reports
             dgvSummary.Columns[6].HeaderText = "Дата окончания";
             dgvSummary.Columns[6].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
-            var rating = _service.GetDoctorRating();
+            var rating = _service.GetDoctorRatingByDepartment(_departmentId);
             var dgvRating = this.Controls.Find("dgvRating", true)[0] as DataGridView;
             dgvRating.DataSource = rating;
 
@@ -127,7 +127,7 @@ namespace ClinicalKnowledgeControl.UI.Forms.Reports
             dgvRating.Columns[4].HeaderText = "Средний балл";
             dgvRating.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            var questions = _service.GetQuestionStatistics();
+            var questions = _service.GetQuestionStatisticsByDepartment(_departmentId);
             var dgvQuestions = this.Controls.Find("dgvQuestions", true)[0] as DataGridView;
             dgvQuestions.DataSource = questions;
 
