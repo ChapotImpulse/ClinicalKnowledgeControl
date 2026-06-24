@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FD99F5EC-8346-4010-AF03-DBDCA2E8B5BD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ClinicalKnowledgeControl</RootNamespace>
+    <AssemblyName>ClinicalKnowledgeControl</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.96.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.96.0\lib\net46\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\Models\Assignment.cs" />
+    <Compile Include="BLL\Models\ClinicalGuideline.cs" />
+    <Compile Include="BLL\Models\Question.cs" />
+    <Compile Include="BLL\Models\QuestionOption.cs" />
+    <Compile Include="BLL\Models\TestAttempt.cs" />
+    <Compile Include="BLL\Models\TestTemplate.cs" />
+    <Compile Include="BLL\Models\User.cs" />
+    <Compile Include="BLL\Services\AssignmentService.cs" />
+    <Compile Include="BLL\Services\AuthService.cs" />
+    <Compile Include="BLL\Services\ClinicalGuidelinesService.cs" />
+    <Compile Include="BLL\Services\QuestionService.cs" />
+    <Compile Include="BLL\Services\ReportService.cs" />
+    <Compile Include="BLL\Services\TestService.cs" />
+    <Compile Include="BLL\Services\TestTemplateService.cs" />
+    <Compile Include="BLL\Services\UserService.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\Enums\QuestionType.cs" />
+    <Compile Include="Common\Enums\TestStatus.cs" />
+    <Compile Include="Common\Enums\UserRole.cs" />
+    <Compile Include="DAL\ConnectionManager.cs" />
+    <Compile Include="DAL\Repositories\AssignmentRepository.cs" />
+    <Compile Include="DAL\Repositories\ClinicalGuidelinesRepository.cs" />
+    <Compile Include="DAL\Repositories\QuestionRepository.cs" />
+    <Compile Include="DAL\Repositories\ReportRepository.cs" />
+    <Compile Include="DAL\Repositories\TestRepository.cs" />
+    <Compile Include="DAL\Repositories\TestTemplateRepository.cs" />
+    <Compile Include="DAL\Repositories\UserRepository.cs" />
+    <Compile Include="UI\Forms\Admin\AssignmentsEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\AssignmentsEditForm.Designer.cs">
+      <DependentUpon>AssignmentsEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\AssignmentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\AssignmentsForm.Designer.cs">
+      <DependentUpon>AssignmentsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\ChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\ChangePasswordForm.Designer.cs">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\ClinicalGuidelineEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\ClinicalGuidelineEditForm.Designer.cs">
+      <DependentUpon>ClinicalGuidelineEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\ClinicalGuidelinesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\ClinicalGuidelinesForm.Designer.cs">
+      <DependentUpon>ClinicalGuidelinesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\QuestionEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\QuestionEditForm.Designer.cs">
+      <DependentUpon>QuestionEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\QuestionsBankForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\QuestionsBankForm.Designer.cs">
+      <DependentUpon>QuestionsBankForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\TestConstructorEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\TestConstructorEditForm.Designer.cs">
+      <DependentUpon>TestConstructorEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\TestConstructorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\TestConstructorForm.Designer.cs">
+      <DependentUpon>TestConstructorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\UsersEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\UsersEditForm.Designer.cs">
+      <DependentUpon>UsersEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\UsersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Admin\UsersForm.Designer.cs">
+      <DependentUpon>UsersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Doctor\DashboardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Doctor\DashboardForm.Designer.cs">
+      <DependentUpon>DashboardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Doctor\HistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Doctor\HistoryForm.Designer.cs">
+      <DependentUpon>HistoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Doctor\TestResultForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Doctor\TestResultForm.Designer.cs">
+      <DependentUpon>TestResultForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Doctor\TestTakingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Doctor\TestTakingForm.Designer.cs">
+      <DependentUpon>TestTakingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Reports\DepartmentReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Reports\DepartmentReportForm.Designer.cs">
+      <DependentUpon>DepartmentReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Reports\InstitutionReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Reports\InstitutionReportForm.Designer.cs">
+      <DependentUpon>InstitutionReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Controls\SecureTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Utils\ExcelExporter.cs" />
+    <Compile Include="UI\Utils\PasswordHasher.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UI\Forms\Admin\AssignmentsEditForm.resx">
+      <DependentUpon>AssignmentsEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Admin\AssignmentsForm.resx">
+      <DependentUpon>AssignmentsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Admin\ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Admin\ClinicalGuidelineEditForm.resx">
+      <DependentUpon>ClinicalGuidelineEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Admin\ClinicalGuidelinesForm.resx">
+      <DependentUpon>ClinicalGuidelinesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Admin\QuestionEditForm.resx">
+      <DependentUpon>QuestionEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Admin\QuestionsBankForm.resx">
+      <DependentUpon>QuestionsBankForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Admin\TestConstructorEditForm.resx">
+      <DependentUpon>TestConstructorEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Admin\TestConstructorForm.resx">
+      <DependentUpon>TestConstructorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Admin\UsersEditForm.resx">
+      <DependentUpon>UsersEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Admin\UsersForm.resx">
+      <DependentUpon>UsersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Doctor\DashboardForm.resx">
+      <DependentUpon>DashboardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Doctor\HistoryForm.resx">
+      <DependentUpon>HistoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Doctor\TestResultForm.resx">
+      <DependentUpon>TestResultForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Doctor\TestTakingForm.resx">
+      <DependentUpon>TestTakingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Reports\DepartmentReportForm.resx">
+      <DependentUpon>DepartmentReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Reports\InstitutionReportForm.resx">
+      <DependentUpon>InstitutionReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DAL\Scripts\DatabaseSetup.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
