@@ -189,9 +189,7 @@ BEGIN
         q.Id,
         q.Text,
         q.QuestionType,
-        q.Explanation,
-        q.SectionName,
-        q.Difficulty
+        q.Explanation
     FROM Questions q
     INNER JOIN TestTemplates t ON q.ClinicalGuidelineId = t.ClinicalGuidelineId
     WHERE t.Id = @TestTemplateId
